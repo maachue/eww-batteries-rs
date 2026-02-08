@@ -19,6 +19,10 @@ fn map_state(state: battery::State) -> BatState {
 }
 
 fn get_symbol(p: u32, state: &BatState) -> &'static str {
+    if !matches!(state, BatState::Discharging) && p == 100 {
+        return "󰂅";
+    }
+
     match (state, p) {
         (BatState::Charging, 5..=14) => "󰢜",
         (BatState::Charging, 15..=24) => "󰂆",
